@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 6</title>
+</head>
+<body onLoad="mueveReloj();">
+
+    <table>
+        <tr>
+            <td>
+                <img src="focoOff.png" alt="foco" id="imagen1" onClick="cambiar1();">
+                <span id="reloj">Hora de inicio</span>
+                <br>
+                <span id="countdown">Countdown</span>
+            </td>
+            <td>
+                <img src="focoOff.png" alt="foco" id="imagen2" onClick="cambiar2();">
+            </td>
+        </tr>
+    </table>
+    
+    <script>
+        function cambiar1(){
+            let foco = document.getElementById('imagen1');
+            if(foco.src.match("focoOff"))
+            {
+                setTimeout(()=>{
+                    momentoActual = new Date();
+                    hora = momentoActual.getHours();
+                    minutos = momentoActual.getMinutes();
+                    segundo = momentoActual.getSeconds();
+                    horaImprimible = hora + " : " + minutos + " : " + segundo
+                    document.getElementById('reloj').innerHTML = horaImprimible;
+                },1000)
+                foco.src="focoOn.png"
+                var countdown = new Date(document.getElementById('reloj').innerHTML = horaImprimible);
+                var myFunc = setInterval(function() {
+                    var now = newDate().getTime();
+                    var timeleft = countdown - now;
+                    var days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
+                    var hours = Math.floor((timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60* 60));
+                    var minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60));
+                    var seconds = Math.floor((timeleft % (1000 * 60)) / 1000 );
+                    
+                    document.getElementById("days").innerHTML = days + "d"
+                    document.getElementById("hours").innerHTML = hours + "h"
+                    document.getElementById("minutes").innerHTML = minutes + "m"
+                    document.getElementById("seconds").innerHTML = seconds + "s"
+
+                    if(timeleft < 0) {
+                        clearInterval(myFunc);
+                        document.getElementById("days").innerHTML = ""
+                        document.getElementById("hours").innerHTML = ""
+                        document.getElementById("minutes").innerHTML = ""
+                        document.getElementById("seconds").innerHTML = ""
+                        document.getElementById("end").innerHTML = "TIME UP!!";
+
+                    }
+
+                },1000)
+            }else{
+                foco.src="focoOff.png"
+            }
+        }
+
+        function cambiar2(){
+            let foco = document.getElementById('imagen2');
+            if(foco.src.match("focoOff"))
+            {
+                foco.src="focoOn.png"
+            }else{
+                foco.src="focoOff.png"
+            }
+        }
+
+        // function mueveReloj(){
+        //     momentoActual = new Date();
+        //     hora = momentoActual.getHours();
+        //     minutos = momentoActual.getMinutes();
+        //     segundo = momentoActual.getSeconds();
+        //     horaImprimible = hora + " : " + minutos + " : " + segundo
+        //     document.getElementById('reloj').innerHTML = horaImprimible;
+        //     setTimeout("mueveReloj()", 1000)
+        // }
+        
+
+    </script>
+</body>
+</html>
